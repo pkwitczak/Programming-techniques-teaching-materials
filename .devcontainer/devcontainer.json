@@ -9,14 +9,14 @@
       "settings": {
         "editor.formatOnSave": true,
         "editor.defaultFormatter": "esbenp.prettier-vscode",
-        "livePreview.defaultPreviewPath": "/index.html"
+        "livePreview.defaultPreviewPath": "/docs/index.html"
       }
     }
   },
   "forwardPorts": 3000,
   "portsAttributes": {
     "3000": {
-      "label": "Podgląd strony",
+      "label": "Page preview",
       "onAutoForward": "openPreview"
     }
   }
