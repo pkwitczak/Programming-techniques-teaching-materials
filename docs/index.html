@@ -1,489 +1,632 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Programming Techniques — Teaching Materials | WNiT UZ</title>
-  <style>
-    :root {
-      --bg-page: #f2f4f7;
-      --bg-surface: #ffffff;
-      --bg-subtle: #e9edf2;
-      --text-main: #18202c;
-      --text-muted: #596577;
-      --border: #d5dce4;
-      --uz-navy: #3a5683;
-      --uz-teal: #2f856d;
-      --shadow-sm: 0 2px 6px rgba(24, 32, 44, 0.04);
-      --shadow-md: 0 10px 24px rgba(24, 32, 44, 0.08);
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Programming Techniques — Teaching Materials | WNiT UZ</title>
+    <style>
+      :root {
+        --bg-page: #f2f4f7;
+        --bg-surface: #ffffff;
+        --bg-subtle: #e9edf2;
+        --text-main: #18202c;
+        --text-muted: #596577;
+        --border: #d5dce4;
+        --uz-navy: #3a5683;
+        --uz-teal: #2f856d;
+        --shadow-sm: 0 2px 6px rgba(24, 32, 44, 0.04);
+        --shadow-md: 0 10px 24px rgba(24, 32, 44, 0.08);
+      }
+      a * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+          Arial, sans-serif;
+        background-color: var(--bg-page);
+        color: var(--text-main);
+        line-height: 1.55;
+        padding: 2rem 1.25rem 3rem;
+      }
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background-color: var(--bg-page);
-      color: var(--text-main);
-      line-height: 1.55;
-      padding: 2rem 1.25rem 3rem;
-    }
+      .container {
+        max-width: 1120px;
+        margin: 0 auto;
+      }
 
-    .container {
-      max-width: 1120px;
-      margin: 0 auto;
-    }
+      header {
+        background: var(--bg-surface);
+        border: 1px solid var(--border);
+        border-top: 4px solid var(--uz-navy);
+        border-radius: 12px;
+        padding: 1.75rem 2rem;
+        margin-bottom: 1.75rem;
+        box-shadow: var(--shadow-sm);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 2rem;
+        flex-wrap: wrap;
+      }
 
-    header {
-      background: var(--bg-surface);
-      border: 1px solid var(--border);
-      border-top: 4px solid var(--uz-navy);
-      border-radius: 12px;
-      padding: 1.75rem 2rem;
-      margin-bottom: 1.75rem;
-      box-shadow: var(--shadow-sm);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 2rem;
-      flex-wrap: wrap;
-    }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 1.75rem;
+        flex-wrap: wrap;
+      }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 1.75rem;
-      flex-wrap: wrap;
-    }
+      .brand img {
+        height: 68px;
+        width: auto;
+        object-fit: contain;
+      }
 
-    .brand img {
-      height: 68px;
-      width: auto;
-      object-fit: contain;
-    }
+      .brand-divider {
+        width: 1px;
+        height: 54px;
+        background: var(--border);
+      }
 
-    .brand-divider {
-      width: 1px;
-      height: 54px;
-      background: var(--border);
-    }
+      .header-text h1 {
+        font-size: 1.55rem;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        color: var(--text-main);
+      }
 
-    .header-text h1 {
-      font-size: 1.55rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      color: var(--text-main);
-    }
+      .header-text p {
+        color: var(--text-muted);
+        font-size: 0.95rem;
+        margin-top: 0.25rem;
+      }
 
-    .header-text p {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      margin-top: 0.25rem;
-    }
+      .toolbar {
+        background: var(--bg-surface);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 1.25rem 1.5rem;
+        margin-bottom: 1.75rem;
+        box-shadow: var(--shadow-sm);
+      }
 
-    .toolbar {
-      background: var(--bg-surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.25rem 1.5rem;
-      margin-bottom: 1.75rem;
-      box-shadow: var(--shadow-sm);
-    }
+      .search-row {
+        display: flex;
+        gap: 0.85rem;
+        flex-wrap: wrap;
+      }
 
-    .search-row {
-      display: flex;
-      gap: 0.85rem;
-      flex-wrap: wrap;
-    }
+      input[type="search"],
+      select {
+        padding: 0.65rem 0.95rem;
+        font-size: 0.92rem;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: var(--bg-page);
+        color: var(--text-main);
+        outline: none;
+        transition:
+          border-color 0.15s,
+          background 0.15s;
+      }
 
-    input[type="search"], select {
-      padding: 0.65rem 0.95rem;
-      font-size: 0.92rem;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      background: var(--bg-page);
-      color: var(--text-main);
-      outline: none;
-      transition: border-color 0.15s, background 0.15s;
-    }
+      input[type="search"] {
+        flex: 1;
+        min-width: 260px;
+      }
 
-    input[type="search"] {
-      flex: 1;
-      min-width: 260px;
-    }
+      input[type="search"]:focus,
+      select:focus {
+        border-color: var(--uz-navy);
+        background: var(--bg-surface);
+      }
 
-    input[type="search"]:focus, select:focus {
-      border-color: var(--uz-navy);
-      background: var(--bg-surface);
-    }
+      select {
+        cursor: pointer;
+        min-width: 220px;
+        font-weight: 500;
+      }
 
-    select {
-      cursor: pointer;
-      min-width: 220px;
-      font-weight: 500;
-    }
+      .tags-bar {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.45rem;
+        margin-top: 1rem;
+        padding-top: 0.9rem;
+        border-top: 1px solid var(--bg-subtle);
+      }
 
-    .tags-bar {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 0.45rem;
-      margin-top: 1rem;
-      padding-top: 0.9rem;
-      border-top: 1px solid var(--bg-subtle);
-    }
+      .tags-label {
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: var(--text-muted);
+        margin-right: 0.35rem;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
 
-    .tags-label {
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--text-muted);
-      margin-right: 0.35rem;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
+      .filter-chip {
+        border: 1px solid var(--border);
+        background: var(--bg-page);
+        color: var(--text-muted);
+        padding: 0.25rem 0.65rem;
+        border-radius: 999px;
+        font-size: 0.8rem;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        cursor: pointer;
+        transition: all 0.15s ease;
+      }
 
-    .filter-chip {
-      border: 1px solid var(--border);
-      background: var(--bg-page);
-      color: var(--text-muted);
-      padding: 0.25rem 0.65rem;
-      border-radius: 999px;
-      font-size: 0.8rem;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      cursor: pointer;
-      transition: all 0.15s ease;
-    }
+      .filter-chip:hover {
+        border-color: var(--uz-navy);
+        color: var(--text-main);
+      }
 
-    .filter-chip:hover {
-      border-color: var(--uz-navy);
-      color: var(--text-main);
-    }
+      .filter-chip.active {
+        background: var(--uz-navy);
+        border-color: var(--uz-navy);
+        color: #ffffff;
+      }
 
-    .filter-chip.active {
-      background: var(--uz-navy);
-      border-color: var(--uz-navy);
-      color: #ffffff;
-    }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 1.25rem;
+      }
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 1.25rem;
-    }
+      .card {
+        background: var(--bg-surface);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 1.4rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        box-shadow: var(--shadow-sm);
+        transition:
+          transform 0.18s ease,
+          box-shadow 0.18s ease,
+          border-color 0.18s ease;
+      }
 
-    .card {
-      background: var(--bg-surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.4rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      box-shadow: var(--shadow-sm);
-      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
-    }
+      .card:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-md);
+        border-color: #b4c0ce;
+      }
 
-    .card:hover {
-      transform: translateY(-3px);
-      box-shadow: var(--shadow-md);
-      border-color: #b4c0ce;
-    }
+      .card-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 0.85rem;
+      }
 
-    .card-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 0.5rem;
-      margin-bottom: 0.85rem;
-    }
+      .release-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 0.78rem;
+        font-weight: 600;
+        padding: 0.22rem 0.6rem;
+        border-radius: 6px;
+        background: rgba(47, 133, 109, 0.12);
+        color: var(--uz-teal);
+        border: 1px solid rgba(47, 133, 109, 0.25);
+      }
 
-    .release-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-size: 0.78rem;
-      font-weight: 600;
-      padding: 0.22rem 0.6rem;
-      border-radius: 6px;
-      background: rgba(47, 133, 109, 0.12);
-      color: var(--uz-teal);
-      border: 1px solid rgba(47, 133, 109, 0.25);
-    }
+      .release-badge.no-release {
+        background: var(--bg-subtle);
+        color: var(--text-muted);
+        border-color: transparent;
+        font-weight: 500;
+      }
 
-    .release-badge.no-release {
-      background: var(--bg-subtle);
-      color: var(--text-muted);
-      border-color: transparent;
-      font-weight: 500;
-    }
+      .card-date {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+      }
 
-    .card-date {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
+      .card-title {
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: var(--text-main);
+        text-decoration: none;
+        line-height: 1.35;
+        display: block;
+      }
 
-    .card-title {
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: var(--text-main);
-      text-decoration: none;
-      line-height: 1.35;
-      display: block;
-    }
+      .card-title:hover {
+        color: var(--uz-navy);
+      }
 
-    .card-title:hover {
-      color: var(--uz-navy);
-    }
+      .card-desc {
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        margin-top: 0.5rem;
+        margin-bottom: 1.1rem;
+      }
 
-    .card-desc {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      margin-top: 0.5rem;
-      margin-bottom: 1.1rem;
-    }
+      .card-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        margin-bottom: 1.25rem;
+      }
 
-    .card-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      margin-bottom: 1.25rem;
-    }
+      .tag {
+        background: var(--bg-subtle);
+        color: var(--text-main);
+        padding: 0.18rem 0.55rem;
+        border-radius: 5px;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 0.76rem;
+        cursor: pointer;
+        border: 1px solid transparent;
+        transition: border-color 0.15s;
+      }
 
-    .tag {
-      background: var(--bg-subtle);
-      color: var(--text-main);
-      padding: 0.18rem 0.55rem;
-      border-radius: 5px;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-size: 0.76rem;
-      cursor: pointer;
-      border: 1px solid transparent;
-      transition: border-color 0.15s;
-    }
+      .tag:hover {
+        border-color: var(--uz-navy);
+      }
 
-    .tag:hover {
-      border-color: var(--uz-navy);
-    }
+      .tag.lang {
+        background: rgba(58, 86, 131, 0.1);
+        color: var(--uz-navy);
+        font-weight: 600;
+      }
 
-    .tag.lang {
-      background: rgba(58, 86, 131, 0.1);
-      color: var(--uz-navy);
-      font-weight: 600;
-    }
+      .card-footer {
+        padding-top: 0.9rem;
+        border-top: 1px solid var(--bg-subtle);
+        display: flex;
+        gap: 0.6rem;
+      }
 
-    .card-footer {
-      padding-top: 0.9rem;
-      border-top: 1px solid var(--bg-subtle);
-      display: flex;
-      gap: 0.6rem;
-    }
+      .btn {
+        flex: 1;
+        text-align: center;
+        padding: 0.55rem 0.9rem;
+        border-radius: 7px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition:
+          background 0.15s,
+          color 0.15s;
+      }
 
-    .btn {
-      flex: 1;
-      text-align: center;
-      padding: 0.55rem 0.9rem;
-      border-radius: 7px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      text-decoration: none;
-      transition: background 0.15s, color 0.15s;
-    }
+      .btn-primary {
+        background: var(--uz-navy);
+        color: #ffffff;
+      }
 
-    .btn-primary {
-      background: var(--uz-navy);
-      color: #ffffff;
-    }
+      .btn-primary:hover {
+        background: #2b4164;
+      }
 
-    .btn-primary:hover {
-      background: #2b4164;
-    }
+      .btn-secondary {
+        background: var(--bg-page);
+        color: var(--text-main);
+        border: 1px solid var(--border);
+      }
 
-    .btn-secondary {
-      background: var(--bg-page);
-      color: var(--text-main);
-      border: 1px solid var(--border);
-    }
+      .btn-secondary:hover {
+        background: var(--bg-subtle);
+      }
 
-    .btn-secondary:hover {
-      background: var(--bg-subtle);
-    }
+      footer {
+        margin-top: 2.5rem;
+        padding-top: 1.25rem;
+        border-top: 1px solid var(--border);
+        font-size: 0.82rem;
+        color: var(--text-muted);
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
 
-    footer {
-      margin-top: 2.5rem;
-      padding-top: 1.25rem;
-      border-top: 1px solid var(--border);
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-
-    @media (max-width: 680px) {
-      .brand-divider { display: none; }
-      header { padding: 1.25rem; }
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <header>
-      <div class="brand">
-        <img
-          src="logo-wnit.png"
-          alt="Faculty of Engineering and Technical Sciences — University of Zielona Góra"
-        >
-        <div class="brand-divider"></div>
-        <div class="header-text">
-          <h1>Programming Techniques — Assignments</h1>
-          <p>Laboratory materials, coding tasks, and project templates for students</p>
+      @media (max-width: 680px) {
+        .brand-divider {
+          display: none;
+        }
+        header {
+          padding: 1.25rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <div class="brand">
+          <img
+            src="logo-wnit.png"
+            alt="Faculty of Engineering and Technical Sciences — University of Zielona Góra"
+          />
+          <div class="brand-divider"></div>
+          <div class="header-text">
+            <h1>Programming Techniques — Assignments</h1>
+            <p>
+              Laboratory materials, coding tasks, and project templates for
+              students
+            </p>
+          </div>
         </div>
-      </div>
-    </header>
+      </header>
 
-    <section class="toolbar">
-      <div class="search-row">
-        <input type="search" id="search" placeholder="Search by title, description, language, or tag...">
-        <select id="sort" aria-label="Sort assignments">
-          <option value="date-desc">Sort: Newest first (Date)</option>
-          <option value="date-asc">Sort: Oldest first (Date)</option>
-          <option value="release-desc">Sort: Release version (High to Low)</option>
-          <option value="name-asc">Sort: Name (A–Z)</option>
-        </select>
-      </div>
-      <div class="tags-bar" id="tags-bar">
-        <span class="tags-label">Tags:</span>
-      </div>
-    </section>
+      <section class="toolbar">
+        <div class="search-row">
+          <input
+            type="search"
+            id="search"
+            placeholder="Search by title, description, language, or tag..."
+          />
+          <select id="sort" aria-label="Sort assignments">
+            <option value="date-desc">Sort: Newest first (Date)</option>
+            <option value="date-asc">Sort: Oldest first (Date)</option>
+            <option value="release-desc">
+              Sort: Release version (High to Low)
+            </option>
+            <option value="name-asc">Sort: Name (A–Z)</option>
+          </select>
+        </div>
+        <div class="tags-bar" id="tags-bar">
+          <span class="tags-label">Tags:</span>
+        </div>
+      </section>
 
-    <main class="grid" id="repo-list"></main>
+      <main class="grid" id="repo-list"></main>
 
-    <footer>
-      <span>Last synced: <strong id="updated-at">—</strong></span>
-      <span>Showing assignments: <strong id="repo-count">0</strong></span>
-    </footer>
-  </div>
+      <footer>
+        <span>Last synced: <strong id="updated-at">—</strong></span>
+        <span>Showing assignments: <strong id="repo-count">0</strong></span>
+      </footer>
+    </div>
 
-  <script>
-    let allRepos = [];
-    let selectedTag = null;
+    <script>
+      let allRepos = [];
+      let selectedTag = null;
 
-    function getRepoLanguages(repo) {
-      if (Array.isArray(repo.languages)) return repo.languages;
-      if (repo.language) return [repo.language];
-      return [];
-    }
+      function getRepoLanguages(repo) {
+        if (Array.isArray(repo.languages)) return repo.languages;
+        if (repo.language) return [repo.language];
+        return [];
+      }
 
-    function getEffectiveDate(repo) {
-      return new Date((repo.release && repo.release.date) || repo.updatedAt).getTime();
-    }
+      function getEffectiveDate(repo) {
+        return new Date(
+          (repo.release && repo.release.date) || repo.updatedAt,
+        ).getTime();
+      }
 
-    function buildTagBar(repos) {
-      const bar = document.getElementById('tags-bar');
-      const tagSet = new Set();
-      repos.forEach(r => (r.topics || []).forEach(t => tagSet.add(t)));
+      function buildTagBar(repos) {
+        const bar = document.getElementById("tags-bar");
+        const tagSet = new Set();
+        repos.forEach((r) => (r.topics || []).forEach((t) => tagSet.add(t)));
 
-      const tags = Array.from(tagSet).sort((a, b) => a.localeCompare(b, 'en'));
-      bar.innerHTML = '<span class="tags-label">Tags:</span>';
+        const tags = Array.from(tagSet).sort((a, b) =>
+          a.localeCompare(b, "en"),
+        );
+        bar.innerHTML = "";
 
-      const allBtn = document.createElement('button');
-      allBtn.type = 'button';
-      allBtn.className = 'filter-chip' + (selectedTag === null ? ' active' : '');
-      allBtn.textContent = 'All';
-      allBtn.onclick = () => { selectedTag = null; updateView(); };
-      bar.appendChild(allBtn);
+        const label = document.createElement("span");
+        label.className = "tags-label";
+        label.textContent = "Tags:";
+        bar.appendChild(label);
 
-      tags.forEach(tag => {
-        const btn = document.createElement('button');
-        btn.type = 'button';
-btn.className = 'filter-chip' + (selectedTag === tag ? ' active' : '');
-btn.textContent = '#' + tag;
-btn.onclick = () => {
-selectedTag = (selectedTag === tag) ? null : tag;
-updateView();
-};
-bar.appendChild(btn);
-});
-}
-function updateView() {
-const query = document.getElementById('search').value.toLowerCase().trim();
-const sortMode = document.getElementById('sort').value;
-document.querySelectorAll('.filter-chip').forEach(btn => {
-if (btn.textContent === 'All') {
-btn.classList.toggle('active', selectedTag === null);
-} else {
-btn.classList.toggle('active', btn.textContent === '#' + selectedTag);
-}
-});
-let filtered = allRepos.filter(r => {
-const langs = getRepoLanguages(r);
-const matchesTag = !selectedTag || (r.topics && r.topics.includes(selectedTag));
-const matchesQuery = !query ||
-r.name.toLowerCase().includes(query) ||
-(r.description && r.description.toLowerCase().includes(query)) ||
-langs.some(l => l.toLowerCase().includes(query)) ||
-(r.release && r.release.tag.toLowerCase().includes(query)) ||
-(r.topics && r.topics.some(t => t.toLowerCase().includes(query)));
-return matchesTag && matchesQuery;
-});
-filtered.sort((a, b) => {
-if (sortMode === 'date-desc') return getEffectiveDate(b) - getEffectiveDate(a);
-if (sortMode === 'date-asc') return getEffectiveDate(a) - getEffectiveDate(b);
-if (sortMode === 'release-desc') {
-const relA = (a.release && a.release.tag) || '';
-const relB = (b.release && b.release.tag) || '';
-return relB.localeCompare(relA, undefined, { numeric: true });
-}
-return a.name.localeCompare(b.name, 'en');
-});
-renderCards(filtered);
-}
-function renderCards(repos) {
-const container = document.getElementById('repo-list');
-document.getElementById('repo-count').textContent = repos.length;
-if (!repos.length) {
-container.innerHTML = 'No assignments match your current filter criteria.';
-return;
-}
-container.innerHTML = repos.map(repo => {
-const hasRelease = repo.release && repo.release.tag;
-const releaseHtml = hasRelease
-? <span class="release-badge">Release ${repo.release.tag}</span>
-: <span class="release-badge no-release">Draft / Unreleased</span>;
-const rawDate = (hasRelease && repo.release.date) ? repo.release.date : repo.updatedAt;
-const formattedDate = new Date(rawDate).toLocaleDateString('en-GB', {
-day: '2-digit', month: 'short', year: 'numeric'
-});
-const langs = getRepoLanguages(repo);
-const langTags = langs.map(l => <span class="tag lang">${l}</span>).join('');
-const topicTags = (repo.topics || [])
-.map(t => <span class="tag" onclick="filterByTag('${t}')">#${t}</span>)
-.join('');
-const releaseBtn = hasRelease
-? <a class="btn btn-secondary" href="${repo.release.url}" target="_blank" rel="noopener">Release</a>
-: '';
-return <article class="card"> <div> <div class="card-top"> ${releaseHtml} <span class="card-date">${formattedDate}</span> </div> <a class="card-title" href="${repo.url}" target="_blank" rel="noopener">${repo.name}</a> <p class="card-desc">${repo.description || 'No description provided.'}</p> </div> <div> <div class="card-tags"> ${langTags} ${topicTags} </div> <div class="card-footer"> <a class="btn btn-primary" href="${repo.url}" target="_blank" rel="noopener">Repository &rarr;</a> ${releaseBtn} </div> </div> </article>;
-}).join('');
-}
-window.filterByTag = function(tag) {
-selectedTag = (selectedTag === tag) ? null : tag;
-updateView();
-};
-fetch('data.json?v=' + Date.now())
-.then(res => res.json())
-.then(data => {
-allRepos = data.repositories || [];
-if (data.generatedAt) {
-document.getElementById('updated-at').textContent =
-new Date(data.generatedAt).toLocaleString('en-GB');
-}
-buildTagBar(allRepos);
-updateView();
-})
-.catch(() => {
-document.getElementById('repo-list').innerHTML =
-'Failed to load data.json.';
-});
-document.getElementById('search').addEventListener('input', updateView);
-document.getElementById('sort').addEventListener('change', updateView);
+        const allBtn = document.createElement("button");
+        allBtn.type = "button";
+        allBtn.className =
+          "filter-chip" + (selectedTag === null ? " active" : "");
+        allBtn.textContent = "All";
+        allBtn.onclick = () => {
+          selectedTag = null;
+          updateView();
+        };
+        bar.appendChild(allBtn);
+
+        tags.forEach((tag) => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className =
+            "filter-chip" + (selectedTag === tag ? " active" : "");
+          btn.textContent = "#" + tag;
+          btn.onclick = () => {
+            selectedTag = selectedTag === tag ? null : tag;
+            updateView();
+          };
+          bar.appendChild(btn);
+        });
+      }
+
+      function updateView() {
+        const query = document
+          .getElementById("search")
+          .value.toLowerCase()
+          .trim();
+        const sortMode = document.getElementById("sort").value;
+
+        document.querySelectorAll(".filter-chip").forEach((btn) => {
+          if (btn.textContent === "All") {
+            btn.classList.toggle("active", selectedTag === null);
+          } else {
+            btn.classList.toggle(
+              "active",
+              btn.textContent === "#" + selectedTag,
+            );
+          }
+        });
+
+        let filtered = allRepos.filter((r) => {
+          const langs = getRepoLanguages(r);
+          const matchesTag =
+            !selectedTag || (r.topics && r.topics.includes(selectedTag));
+          const matchesQuery =
+            !query ||
+            r.name.toLowerCase().includes(query) ||
+            (r.description && r.description.toLowerCase().includes(query)) ||
+            langs.some((l) => l.toLowerCase().includes(query)) ||
+            (r.release && r.release.tag.toLowerCase().includes(query)) ||
+            (r.topics && r.topics.some((t) => t.toLowerCase().includes(query)));
+          return matchesTag && matchesQuery;
+        });
+
+        filtered.sort((a, b) => {
+          if (sortMode === "date-desc")
+            return getEffectiveDate(b) - getEffectiveDate(a);
+          if (sortMode === "date-asc")
+            return getEffectiveDate(a) - getEffectiveDate(b);
+          if (sortMode === "release-desc") {
+            const relA = (a.release && a.release.tag) || "";
+            const relB = (b.release && b.release.tag) || "";
+            return relB.localeCompare(relA, undefined, { numeric: true });
+          }
+          return a.name.localeCompare(b.name, "en");
+        });
+
+        renderCards(filtered);
+      }
+
+      function renderCards(repos) {
+        const container = document.getElementById("repo-list");
+        document.getElementById("repo-count").textContent = repos.length;
+        container.innerHTML = "";
+
+        if (!repos.length) {
+          const empty = document.createElement("p");
+          empty.style.color = "var(--text-muted)";
+          empty.textContent =
+            "No assignments match your current filter criteria.";
+          container.appendChild(empty);
+          return;
+        }
+
+        repos.forEach((repo) => {
+          const hasRelease = repo.release && repo.release.tag;
+
+          const card = document.createElement("article");
+          card.className = "card";
+
+          const topSection = document.createElement("div");
+          const cardTop = document.createElement("div");
+          cardTop.className = "card-top";
+
+          const badge = document.createElement("span");
+          badge.className = hasRelease
+            ? "release-badge"
+            : "release-badge no-release";
+          badge.textContent = hasRelease
+            ? "Release " + repo.release.tag
+            : "Draft / Unreleased";
+          cardTop.appendChild(badge);
+
+          const rawDate =
+            hasRelease && repo.release.date
+              ? repo.release.date
+              : repo.updatedAt;
+          const dateSpan = document.createElement("span");
+          dateSpan.className = "card-date";
+          dateSpan.textContent = new Date(rawDate).toLocaleDateString("en-GB", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric",
+          });
+          cardTop.appendChild(dateSpan);
+          topSection.appendChild(cardTop);
+
+          const titleLink = document.createElement("a");
+          titleLink.className = "card-title";
+          titleLink.href = repo.url;
+          titleLink.target = "_blank";
+          titleLink.rel = "noopener";
+          titleLink.textContent = repo.name;
+          topSection.appendChild(titleLink);
+
+          const desc = document.createElement("p");
+          desc.className = "card-desc";
+          desc.textContent = repo.description || "No description provided.";
+          topSection.appendChild(desc);
+
+          const bottomSection = document.createElement("div");
+          const tagsDiv = document.createElement("div");
+          tagsDiv.className = "card-tags";
+
+          getRepoLanguages(repo).forEach((lang) => {
+            const langSpan = document.createElement("span");
+            langSpan.className = "tag lang";
+            langSpan.textContent = lang;
+            tagsDiv.appendChild(langSpan);
+          });
+
+          (repo.topics || []).forEach((topic) => {
+            const topicSpan = document.createElement("span");
+            topicSpan.className = "tag";
+            topicSpan.textContent = "#" + topic;
+            topicSpan.onclick = () => {
+              selectedTag = selectedTag === topic ? null : topic;
+              updateView();
+            };
+            tagsDiv.appendChild(topicSpan);
+          });
+
+          bottomSection.appendChild(tagsDiv);
+
+          const footerDiv = document.createElement("div");
+          footerDiv.className = "card-footer";
+
+          const repoBtn = document.createElement("a");
+          repoBtn.className = "btn btn-primary";
+          repoBtn.href = repo.url;
+          repoBtn.target = "_blank";
+          repoBtn.rel = "noopener";
+          repoBtn.textContent = "Repository \u2192";
+          footerDiv.appendChild(repoBtn);
+
+          if (hasRelease) {
+            const relBtn = document.createElement("a");
+            relBtn.className = "btn btn-secondary";
+            relBtn.href = repo.release.url;
+            relBtn.target = "_blank";
+            relBtn.rel = "noopener";
+            relBtn.textContent = "Release";
+            footerDiv.appendChild(relBtn);
+          }
+
+          bottomSection.appendChild(footerDiv);
+          card.appendChild(topSection);
+          card.appendChild(bottomSection);
+          container.appendChild(card);
+        });
+      }
+
+      fetch("data.json?v=" + Date.now())
+        .then((res) => res.json())
+        .then((data) => {
+          allRepos = data.repositories || [];
+          if (data.generatedAt) {
+            document.getElementById("updated-at").textContent = new Date(
+              data.generatedAt,
+            ).toLocaleString("en-GB");
+          }
+          buildTagBar(allRepos);
+          updateView();
+        })
+        .catch((err) => {
+          document.getElementById("repo-list").textContent =
+            "Failed to load data.json: " + err.message;
+        });
+
+      document.getElementById("search").addEventListener("input", updateView);
+      document.getElementById("sort").addEventListener("change", updateView);
+    </script>
+  </body>
+</html>
