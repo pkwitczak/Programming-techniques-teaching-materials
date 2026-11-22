@@ -1,0 +1,23 @@
+{
+  "name": "WNT GitHub Pages Dev",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode.live-server",
+        "esbenp.prettier-vscode"
+      ],
+      "settings": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "livePreview.defaultPreviewPath": "/docs/index.html"
+      }
+    }
+  },
+  "forwardPorts": 3000,
+  "portsAttributes": {
+    "3000": {
+      "label": "Page preview",
+      "onAutoForward": "openPreview"
+    }
+  }
+}
