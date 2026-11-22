@@ -1,6 +1,5 @@
 {
   "name": "WNT GitHub Pages Dev",
-  "image": "://microsoft.com",
   "customizations": {
     "vscode": {
       "extensions": [
@@ -14,10 +13,10 @@
       }
     }
   },
-  "forwardPorts":,
+  "forwardPorts": 3000,
   "portsAttributes": {
     "3000": {
-      "label": "Page preview",
+      "label": "Podgląd strony",
       "onAutoForward": "openPreview"
     }
   }
