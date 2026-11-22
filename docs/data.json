@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-22T14:35:33.041Z",
+  "generatedAt": "2026-11-22T14:35:52.854Z",
   "repositories": [
     {
       "description": "Fundamentals of C exercises ",
@@ -47,6 +47,19 @@
       "topics": [],
       "updatedAt": "2026-10-18T12:48:52Z",
       "url": "https://github.com/pkwitczak/NASM-Lab2"
+    },
+    {
+      "description": null,
+      "languages": [
+        "Assembly",
+        "Makefile",
+        "Dockerfile"
+      ],
+      "name": "NASM-Lab3",
+      "release": null,
+      "topics": [],
+      "updatedAt": "2026-10-23T07:48:43Z",
+      "url": "https://github.com/pkwitczak/NASM-Lab3"
     },
     {
       "description": null,
