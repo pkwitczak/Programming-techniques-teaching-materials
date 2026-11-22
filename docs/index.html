@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Techniki Programowania — Materiały dydaktyczne | WNiT UZ</title>
+  <title>Programming Techniques — Teaching Materials | WNiT UZ</title>
   <style>
     :root {
       --bg-page: #f2f4f7;
@@ -33,7 +33,6 @@
       margin: 0 auto;
     }
 
-    /* Nagłówek z logo WNiT */
     header {
       background: var(--bg-surface);
       border: 1px solid var(--border);
@@ -81,7 +80,6 @@
       margin-top: 0.25rem;
     }
 
-    /* Pasek wyszukiwania, sortowania i filtrów */
     .toolbar {
       background: var(--bg-surface);
       border: 1px solid var(--border);
@@ -120,7 +118,7 @@
 
     select {
       cursor: pointer;
-      min-width: 210px;
+      min-width: 220px;
       font-weight: 500;
     }
 
@@ -166,7 +164,6 @@
       color: #ffffff;
     }
 
-    /* Siatka kafelków */
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -334,94 +331,49 @@
     <header>
       <div class="brand">
         <img
-          src="https://wnit.uz.zgora.pl/fcp/BHVENFTgGFAMKCAkFBwIDHU5REB4fFhw/170/public/aktualnosci/2025/logo_wnit_pl_pion_rgb.png"
-          alt="Logo Wydziału Nauk Inżynieryjno-Technicznych Uniwersytetu Zielonogórskiego"
+          src="https://uz.zgora.pl"
+          alt="Faculty of Engineering and Technical Sciences — University of Zielona Góra"
         >
         <div class="brand-divider"></div>
         <div class="header-text">
-          <h1>Techniki Programowania — Zadania</h1>
-          <p>Repozytoria materiałów laboratoryjnych i projektowych dla studentów</p>
+          <h1>Programming Techniques — Assignments</h1>
+          <p>Laboratory materials, coding tasks, and project templates for students</p>
         </div>
       </div>
     </header>
 
     <section class="toolbar">
       <div class="search-row">
-        <input type="search" id="search" placeholder="Szukaj po nazwie, opisie lub tagu...">
-        <select id="sort" aria-label="Sortowanie zadań">
-          <option value="date-desc">Sortuj: Najnowsze (data)</option>
-          <option value="date-asc">Sortuj: Najstarsze (data)</option>
-          <option value="release-desc">Sortuj: Numer wydania (malejąco)</option>
-          <option value="name-asc">Sortuj: Nazwa (A–Z)</option>
+        <input type="search" id="search" placeholder="Search by title, description, language, or tag...">
+        <select id="sort" aria-label="Sort assignments">
+          <option value="date-desc">Sort: Newest first (Date)</option>
+          <option value="date-asc">Sort: Oldest first (Date)</option>
+          <option value="release-desc">Sort: Release version (High to Low)</option>
+          <option value="name-asc">Sort: Name (A–Z)</option>
         </select>
       </div>
       <div class="tags-bar" id="tags-bar">
-        <span class="tags-label">Tagi:</span>
+        <span class="tags-label">Tags:</span>
       </div>
     </section>
 
     <main class="grid" id="repo-list"></main>
 
     <footer>
-      <span>Synchronizacja z GitHub Projects: <strong id="updated-at">—</strong></span>
-      <span>Wyświetlane zadania: <strong id="repo-count">0</strong></span>
+      <span>Last synced: <strong id="updated-at">—</strong></span>
+      <span>Showing assignments: <strong id="repo-count">0</strong></span>
     </footer>
   </div>
 
-   <script>
-    const MOCK_DATA = {
-      generatedAt: "2026-11-22T12:00:00Z",
-      repositories: [
-        {
-          name: "lab-01-podstawy-skladni",
-          description: "Struktura programu, typy danych, instrukcje sterujące oraz podstawowe operacje wejścia/wyjścia.",
-          url: "https://github.com",
-          updatedAt: "2026-10-08T12:00:00Z",
-          language: "C++",
-          topics: ["lab-01", "podstawy", "semestr-1"],
-          release: { tag: "v1.2.0", date: "2026-10-08T12:00:00Z", url: "https://github.com" }
-        },
-        {
-          name: "lab-02-tablice-i-wskazniki",
-          description: "Zarządzanie pamięcią dynamiczną, arytmetyka wskaźników i przekazywanie tablic do funkcji.",
-          url: "https://github.com",
-          updatedAt: "2026-10-15T14:30:00Z",
-          language: "C++",
-          topics: ["lab-02", "wskazniki", "pamiec"],
-          release: { tag: "v1.1.0", date: "2026-10-15T14:30:00Z", url: "https://github.com" }
-        },
-        {
-          name: "lab-03-struktury-i-pliki",
-          description: "Tworzenie własnych typów strukturalnych oraz serializacja danych do plików tekstowych i binarnych.",
-          url: "https://github.com",
-          updatedAt: "2026-10-22T09:10:00Z",
-          language: "C++",
-          topics: ["lab-03", "pliki", "struktury"],
-          release: { tag: "v2.0.1", date: "2026-10-22T09:10:00Z", url: "https://github.com" }
-        },
-        {
-          name: "lab-04-obliczenia-macierzowe",
-          description: "Implementacja operacji na macierzach rzadkich i rozwiązywanie układów równań liniowych.",
-          url: "https://github.com",
-          updatedAt: "2026-11-05T16:20:00Z",
-          language: "Python",
-          topics: ["lab-04", "algorytmy", "macierze"],
-          release: { tag: "v1.0.0", date: "2026-11-05T16:20:00Z", url: "https://github.com" }
-        },
-        {
-          name: "projekt-semestralny-symulator",
-          description: "Szablon repozytorium do projektu zaliczeniowego wraz z zestawem testów jednostkowych.",
-          url: "https://github.com",
-          updatedAt: "2026-11-19T11:45:00Z",
-          language: "C++",
-          topics: ["projekt", "zaliczenie", "testy"],
-          release: null
-        }
-      ]
-    };
-
+  <script>
     let allRepos = [];
     let selectedTag = null;
+
+    function getRepoLanguages(repo) {
+      if (Array.isArray(repo.languages)) return repo.languages;
+      if (repo.language) return [repo.language];
+      return [];
+    }
 
     function getEffectiveDate(repo) {
       return new Date((repo.release && repo.release.date) || repo.updatedAt).getTime();
@@ -432,147 +384,106 @@
       const tagSet = new Set();
       repos.forEach(r => (r.topics || []).forEach(t => tagSet.add(t)));
 
-      const tags = Array.from(tagSet).sort((a, b) => a.localeCompare(b, 'pl'));
-      bar.innerHTML = '<span class="tags-label">Tagi:</span>';
+      const tags = Array.from(tagSet).sort((a, b) => a.localeCompare(b, 'en'));
+      bar.innerHTML = '<span class="tags-label">Tags:</span>';
 
       const allBtn = document.createElement('button');
       allBtn.type = 'button';
       allBtn.className = 'filter-chip' + (selectedTag === null ? ' active' : '');
-      allBtn.textContent = 'Wszystkie';
+      allBtn.textContent = 'All';
       allBtn.onclick = () => { selectedTag = null; updateView(); };
       bar.appendChild(allBtn);
 
       tags.forEach(tag => {
         const btn = document.createElement('button');
         btn.type = 'button';
-        btn.className = 'filter-chip' + (selectedTag === tag ? ' active' : '');
-        btn.textContent = '#' + tag;
-        btn.onclick = () => {
-          selectedTag = (selectedTag === tag) ? null : tag;
-          updateView();
-        };
-        bar.appendChild(btn);
-      });
-    }
-
-    function updateView() {
-      const query = document.getElementById('search').value.toLowerCase().trim();
-      const sortMode = document.getElementById('sort').value;
-
-      document.querySelectorAll('.filter-chip').forEach(btn => {
-        if (btn.textContent === 'Wszystkie') {
-          btn.classList.toggle('active', selectedTag === null);
-        } else {
-          btn.classList.toggle('active', btn.textContent === '#' + selectedTag);
-        }
-      });
-
-      let filtered = allRepos.filter(r => {
-        const matchesTag = !selectedTag || (r.topics && r.topics.includes(selectedTag));
-        const matchesQuery = !query ||
-          r.name.toLowerCase().includes(query) ||
-          (r.description && r.description.toLowerCase().includes(query)) ||
-          (r.language && r.language.toLowerCase().includes(query)) ||
-          (r.release && r.release.tag.toLowerCase().includes(query)) ||
-          (r.topics && r.topics.some(t => t.toLowerCase().includes(query)));
-        return matchesTag && matchesQuery;
-      });
-
-      filtered.sort((a, b) => {
-        if (sortMode === 'date-desc') return getEffectiveDate(b) - getEffectiveDate(a);
-        if (sortMode === 'date-asc') return getEffectiveDate(a) - getEffectiveDate(b);
-        if (sortMode === 'release-desc') {
-          const relA = (a.release && a.release.tag) || '';
-          const relB = (b.release && b.release.tag) || '';
-          return relB.localeCompare(relA, undefined, { numeric: true });
-        }
-        return a.name.localeCompare(b.name, 'pl');
-      });
-
-      renderCards(filtered);
-    }
-
-    function renderCards(repos) {
-      const container = document.getElementById('repo-list');
-      document.getElementById('repo-count').textContent = repos.length;
-
-      if (!repos.length) {
-        container.innerHTML = '<p style="color: var(--text-muted);">Brak zadań spełniających wybrane kryteria filtrowania.</p>';
-        return;
-      }
-
-      container.innerHTML = repos.map(repo => {
-        const hasRelease = repo.release && repo.release.tag;
-        const releaseHtml = hasRelease
-          ? `<span class="release-badge">Wydanie ${repo.release.tag}</span>`
-          : `<span class="release-badge no-release">Wersja robocza</span>`;
-
-        const rawDate = (hasRelease && repo.release.date) ? repo.release.date : repo.updatedAt;
-        const formattedDate = new Date(rawDate).toLocaleDateString('pl-PL', {
-          day: '2-digit', month: '2-digit', year: 'numeric'
-        });
-
-        const langTag = repo.language ? `<span class="tag lang">${repo.language}</span>` : '';
-        const topicTags = (repo.topics || [])
-          .map(t => `<span class="tag" onclick="filterByTag('${t}')">#${t}</span>`)
-          .join('');
-
-        const releaseBtn = hasRelease
-          ? `<a class="btn btn-secondary" href="${repo.release.url}" target="_blank" rel="noopener">Release</a>`
-          : '';
-
-        return `
-          <article class="card">
-            <div>
-              <div class="card-top">
-                ${releaseHtml}
-                <span class="card-date">${formattedDate}</span>
-              </div>
-              <a class="card-title" href="${repo.url}" target="_blank" rel="noopener">${repo.name}</a>
-              <p class="card-desc">${repo.description || 'Brak opisu zadania.'}</p>
-            </div>
-            <div>
-              <div class="card-tags">
-                ${langTag}
-                ${topicTags}
-              </div>
-              <div class="card-footer">
-                <a class="btn btn-primary" href="${repo.url}" target="_blank" rel="noopener">Repozytorium &rarr;</a>
-                ${releaseBtn}
-              </div>
-            </div>
-          </article>
-        `;
-      }).join('');
-    }
-
-    window.filterByTag = function(tag) {
-      selectedTag = (selectedTag === tag) ? null : tag;
-      updateView();
-    };
-
-    function initApp(data, isMock) {
-      allRepos = data.repositories || [];
-      document.getElementById('updated-at').textContent = isMock
-        ? 'Tryb podglądu (przykładowe dane)'
-        : new Date(data.generatedAt).toLocaleString('pl-PL');
-      buildTagBar(allRepos);
-      updateView();
-    }
-
-    // Najpierw od razu narysuj przykłady, żeby ekran nigdy nie był pusty
-    initApp(MOCK_DATA, true);
-
-    // Następnie spróbuj wczytać prawdziwy plik data.json, jeśli ma już dane
-    fetch('data.json?v=' + Date.now())
-      .then(res => res.ok ? res.json() : null)
-      .then(data => {
-        if (data && Array.isArray(data.repositories) && data.repositories.length > 0) {
-          initApp(data, false);
-        }
-      })
-      .catch(() => {});
-
-    document.getElementById('search').addEventListener('input', updateView);
-    document.getElementById('sort').addEventListener('change', updateView);
-  </script>
+btn.className = 'filter-chip' + (selectedTag === tag ? ' active' : '');
+btn.textContent = '#' + tag;
+btn.onclick = () => {
+selectedTag = (selectedTag === tag) ? null : tag;
+updateView();
+};
+bar.appendChild(btn);
+});
+}
+function updateView() {
+const query = document.getElementById('search').value.toLowerCase().trim();
+const sortMode = document.getElementById('sort').value;
+document.querySelectorAll('.filter-chip').forEach(btn => {
+if (btn.textContent === 'All') {
+btn.classList.toggle('active', selectedTag === null);
+} else {
+btn.classList.toggle('active', btn.textContent === '#' + selectedTag);
+}
+});
+let filtered = allRepos.filter(r => {
+const langs = getRepoLanguages(r);
+const matchesTag = !selectedTag || (r.topics && r.topics.includes(selectedTag));
+const matchesQuery = !query ||
+r.name.toLowerCase().includes(query) ||
+(r.description && r.description.toLowerCase().includes(query)) ||
+langs.some(l => l.toLowerCase().includes(query)) ||
+(r.release && r.release.tag.toLowerCase().includes(query)) ||
+(r.topics && r.topics.some(t => t.toLowerCase().includes(query)));
+return matchesTag && matchesQuery;
+});
+filtered.sort((a, b) => {
+if (sortMode === 'date-desc') return getEffectiveDate(b) - getEffectiveDate(a);
+if (sortMode === 'date-asc') return getEffectiveDate(a) - getEffectiveDate(b);
+if (sortMode === 'release-desc') {
+const relA = (a.release && a.release.tag) || '';
+const relB = (b.release && b.release.tag) || '';
+return relB.localeCompare(relA, undefined, { numeric: true });
+}
+return a.name.localeCompare(b.name, 'en');
+});
+renderCards(filtered);
+}
+function renderCards(repos) {
+const container = document.getElementById('repo-list');
+document.getElementById('repo-count').textContent = repos.length;
+if (!repos.length) {
+container.innerHTML = 'No assignments match your current filter criteria.';
+return;
+}
+container.innerHTML = repos.map(repo => {
+const hasRelease = repo.release && repo.release.tag;
+const releaseHtml = hasRelease
+? <span class="release-badge">Release ${repo.release.tag}</span>
+: <span class="release-badge no-release">Draft / Unreleased</span>;
+const rawDate = (hasRelease && repo.release.date) ? repo.release.date : repo.updatedAt;
+const formattedDate = new Date(rawDate).toLocaleDateString('en-GB', {
+day: '2-digit', month: 'short', year: 'numeric'
+});
+const langs = getRepoLanguages(repo);
+const langTags = langs.map(l => <span class="tag lang">${l}</span>).join('');
+const topicTags = (repo.topics || [])
+.map(t => <span class="tag" onclick="filterByTag('${t}')">#${t}</span>)
+.join('');
+const releaseBtn = hasRelease
+? <a class="btn btn-secondary" href="${repo.release.url}" target="_blank" rel="noopener">Release</a>
+: '';
+return <article class="card"> <div> <div class="card-top"> ${releaseHtml} <span class="card-date">${formattedDate}</span> </div> <a class="card-title" href="${repo.url}" target="_blank" rel="noopener">${repo.name}</a> <p class="card-desc">${repo.description || 'No description provided.'}</p> </div> <div> <div class="card-tags"> ${langTags} ${topicTags} </div> <div class="card-footer"> <a class="btn btn-primary" href="${repo.url}" target="_blank" rel="noopener">Repository &rarr;</a> ${releaseBtn} </div> </div> </article>;
+}).join('');
+}
+window.filterByTag = function(tag) {
+selectedTag = (selectedTag === tag) ? null : tag;
+updateView();
+};
+fetch('data.json?v=' + Date.now())
+.then(res => res.json())
+.then(data => {
+allRepos = data.repositories || [];
+if (data.generatedAt) {
+document.getElementById('updated-at').textContent =
+new Date(data.generatedAt).toLocaleString('en-GB');
+}
+buildTagBar(allRepos);
+updateView();
+})
+.catch(() => {
+document.getElementById('repo-list').innerHTML =
+'Failed to load data.json.';
+});
+document.getElementById('search').addEventListener('input', updateView);
+document.getElementById('sort').addEventListener('change', updateView);
