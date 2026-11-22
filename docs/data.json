@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-22T13:58:56.077Z",
+  "generatedAt": "2026-11-22T14:33:55.072Z",
   "repositories": [
     {
       "description": "Fundamentals of C exercises ",
@@ -9,6 +9,18 @@
       "topics": [],
       "updatedAt": "2026-10-18T09:51:23Z",
       "url": "https://github.com/pkwitczak/C-Lab1"
+    },
+    {
+      "description": null,
+      "languages": [
+        "C",
+        "Makefile"
+      ],
+      "name": "C-Lab5",
+      "release": null,
+      "topics": [],
+      "updatedAt": "2026-11-22T09:55:31Z",
+      "url": "https://github.com/pkwitczak/C-Lab5"
     }
   ]
 }
