@@ -1,0 +1,71 @@
+name: Reusable Metadata Publisher
+
+on:
+  workflow_call:
+    secrets:
+      PAGES_SYNC_TOKEN:
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate repository metadata JSON
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OWNER: ${{ github.repository_owner }}
+          NAME: ${{ github.event.repository.name }}
+        run: |
+          gh api graphql -F owner="$OWNER" -F name="$NAME" -f query='
+            query($owner: String!, $name: String!) {
+              repository(owner: $owner, name: $name) {
+                name
+                description
+                url
+                updatedAt
+                languages(first: 5, orderBy: {field: SIZE, direction: DESC}) {
+                  nodes { name }
+                }
+                repositoryTopics(first: 10) {
+                  nodes { topic { name } }
+                }
+                latestRelease {
+                  tagName
+                  publishedAt
+                  url
+                }
+              }
+            }
+          ' --jq '{
+            name: .data.repository.name,
+            description: .data.repository.description,
+            url: .data.repository.url,
+            updatedAt: .data.repository.updatedAt,
+            languages: [.data.repository.languages.nodes[].name | select(. != "Shell" and . != "Batchfile")],
+            topics: [.data.repository.repositoryTopics.nodes[].topic.name],
+            release: (if .data.repository.latestRelease then {
+              tag: .data.repository.latestRelease.tagName,
+              date: .data.repository.latestRelease.publishedAt,
+              url: .data.repository.latestRelease.url
+            } else null end)
+          }' > repo-meta.json
+
+      - name: Checkout GitHub Pages repository
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository_owner }}/Programming-techniques-teaching-materials
+          token: ${{ secrets.PAGES_SYNC_TOKEN }}
+          path: pages-repo
+
+      - name: Save metadata to docs/repos_data/ and push
+        run: |
+          mkdir -p pages-repo/docs/repos_data
+          cp repo-meta.json "pages-repo/docs/repos_data/${{ github.event.repository.name }}.json"
+          cd pages-repo
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@://github.com"
+          git add "docs/repos_data/${{ github.event.repository.name }}.json"
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Sync metadata: ${{ github.event.repository.name }}" && git push)
